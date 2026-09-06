@@ -1,18 +1,3182 @@
-cat > src/pages/index.astro <<'EOF'
+---
+const year = new Date().getFullYear();
+---
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=/en/" />
-    <meta name="robots" content="noindex" />
-    <link rel="canonical" href="https://yh-inc.jp/en/" />
-    <title>Y&H Inc.</title>
-    <script is:inline>
-      window.location.replace('/en/');
-    </script>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Y&H Inc. | Brand Integrity by Design</title>
+
+    <meta
+      name="description"
+      content="Y&H explores Brand Integrity through Behavioral Integrity, Data Integrity, human-centered advertising, and emerging agentic advertising ecosystems."
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/yh-logo.svg" />
+
+    <link rel="canonical" href="https://yh-inc.jp/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Y&H Inc." />
+    <meta property="og:title" content="Y&H Inc. | Brand Integrity by Design" />
+    <meta
+      property="og:description"
+      content="Exploring Behavioral Integrity, Data Integrity, human-centered advertising, and the future of agentic advertising."
+    />
+    <meta property="og:url" content="https://yh-inc.jp/" />
+
+    <meta
+      property="og:image"
+      content="https://yh-inc.jp/images/og-brand-integrity.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Y&H Inc. — Brand Integrity by Design"
+    />
+
+    <!-- X / Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Y&H Inc. | Brand Integrity by Design" />
+    <meta
+      name="twitter:description"
+      content="Exploring Behavioral Integrity, Data Integrity, human-centered advertising, and the future of agentic advertising."
+    />
+    <meta
+      name="twitter:image"
+      content="https://yh-inc.jp/images/og-brand-integrity.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Y&H Inc. — Brand Integrity by Design"
+    />
+
+    <style is:global>
+      :root {
+        --navy: #0b3150;
+        --blue: #0d678a;
+        --blue-light: #eaf5f8;
+        --green-light: #eef8f2;
+        --text: #173248;
+        --muted: #667985;
+        --line: #d9e3e8;
+        --bg: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      section[id] {
+        scroll-margin-top: 100px;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        background: var(--bg);
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.65;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: var(--navy);
+        font-family:
+          Georgia,
+          "Times New Roman",
+          serif;
+        line-height: 1.08;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .container {
+        width: min(1180px, calc(100% - 48px));
+        margin-inline: auto;
+      }
+
+      .eyebrow {
+        margin-bottom: 12px;
+        color: var(--blue);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .section {
+        padding: 96px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-title {
+        max-width: 760px;
+        margin-bottom: 32px;
+        font-size: clamp(2.2rem, 5vw, 4rem);
+      }
+
+      .lead {
+        max-width: 760px;
+        color: #455d6e;
+        font-size: 1.15rem;
+      }
+
+      /* Header */
+
+      header {
+        position: sticky;
+        z-index: 10;
+        top: 0;
+        background: rgb(255 255 255 / 92%);
+        border-bottom: 1px solid rgb(217 227 232 / 80%);
+        backdrop-filter: blur(14px);
+      }
+
+      .header-inner {
+        display: flex;
+        min-height: 72px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+      }
+
+      .logo {
+        color: var(--navy);
+        font-family: Georgia, serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        font-size: 0.9rem;
+      }
+
+      nav a {
+        text-decoration: none;
+      }
+
+      .contact-button {
+        padding: 10px 22px;
+        color: #fff;
+        background: var(--blue);
+        border-radius: 999px;
+      }
+
+      /* Hero */
+
+      .hero {
+        position: relative;
+        display: flex;
+        min-height: calc(100vh - 72px);
+        align-items: center;
+        overflow: hidden;
+        background:
+          radial-gradient(
+            circle at 72% 42%,
+            rgb(169 218 232 / 30%),
+            transparent 28%
+          ),
+          linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f5fbfd 48%,
+            #e7f4f8 100%
+          );
+      }
+
+      .hero::after {
+        position: absolute;
+        inset: auto 0 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgb(13 103 138 / 30%),
+          transparent
+        );
+        content: "";
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        padding: 100px 0;
+      }
+
+      .integrity-mark {
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 76%;
+        width: 420px;
+        height: 420px;
+        transform: translate(-50%, -50%);
+        opacity: 0.78;
+      }
+
+      .integrity-axis {
+        position: absolute;
+        display: block;
+        border-radius: 999px;
+      }
+
+      .integrity-axis-v {
+        top: 5%;
+        bottom: 5%;
+        left: 50%;
+        width: 2px;
+        transform: translateX(-50%);
+        background: linear-gradient(
+          180deg,
+          transparent,
+          rgb(13 103 138 / 25%),
+          rgb(13 103 138 / 80%),
+          rgb(13 103 138 / 25%),
+          transparent
+        );
+      }
+
+      .integrity-axis-h {
+        top: 50%;
+        right: 5%;
+        left: 5%;
+        height: 2px;
+        transform: translateY(-50%);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgb(13 103 138 / 25%),
+          rgb(13 103 138 / 80%),
+          rgb(13 103 138 / 25%),
+          transparent
+        );
+      }
+
+      .integrity-core {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 18px;
+        height: 18px;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        border: 2px solid rgb(13 103 138 / 75%);
+        border-radius: 50%;
+        box-shadow:
+          0 0 0 12px rgb(13 103 138 / 5%),
+          0 0 40px 18px rgb(78 181 207 / 18%);
+      }
+
+      .hero h1 {
+        max-width: 960px;
+        margin-bottom: 24px;
+        font-size: clamp(3.2rem, 7vw, 6.3rem);
+        letter-spacing: -0.035em;
+      }
+
+      .hero-subtitle {
+        margin-bottom: 22px;
+        color: var(--navy);
+        font-family: Georgia, serif;
+        font-size: clamp(1.4rem, 3vw, 2rem);
+      }
+
+      .hero-copy {
+        max-width: 780px;
+        color: #455d6e;
+        font-size: 1.1rem;
+      }
+
+      .metrics {
+        display: flex;
+        width: fit-content;
+        margin-top: 42px;
+        overflow: hidden;
+        background: rgb(255 255 255 / 85%);
+        border: 1px solid #b8ccd6;
+        border-radius: 4px;
+      }
+
+      .metric {
+        min-width: 170px;
+        padding: 18px 26px;
+        border-right: 1px solid var(--line);
+      }
+
+      .metric:last-child {
+        border-right: 0;
+      }
+
+      .metric-label {
+        font-family: Georgia, serif;
+        font-size: 0.85rem;
+      }
+
+      .metric-value {
+        color: var(--navy);
+        font-family: Georgia, serif;
+        font-size: 2.4rem;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+
+      /* 01 Problem */
+
+      .problem-grid {
+        display: grid;
+        margin-top: 54px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      .card {
+        padding: 28px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+      }
+
+      .card h3 {
+        font-size: 1.55rem;
+      }
+
+      /* 02 Belief */
+
+      .belief {
+        position: relative;
+        overflow: hidden;
+        color: #fff;
+        background:
+          radial-gradient(
+            circle at 68% 48%,
+            rgb(35 131 162 / 34%),
+            transparent 28%
+          ),
+          var(--navy);
+      }
+
+      .belief h2,
+      .belief h3 {
+        color: #fff;
+      }
+
+      .belief .lead {
+        color: #d9eaf1;
+      }
+
+      .belief-layout {
+        display: grid;
+        align-items: center;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 80px;
+      }
+
+      .belief-intro .section-title {
+        margin-bottom: 28px;
+      }
+
+      .integrity-diagram {
+        position: relative;
+        width: min(100%, 620px);
+        height: 410px;
+        margin-inline: auto;
+      }
+
+      .integrity-circle {
+        position: absolute;
+        top: 20px;
+        display: grid;
+        width: 310px;
+        height: 310px;
+        place-items: center;
+        border: 1px solid rgb(255 255 255 / 70%);
+        border-radius: 50%;
+        text-align: center;
+      }
+
+      .integrity-circle.behavioral {
+        left: 35px;
+        background: rgb(255 255 255 / 3%);
+      }
+
+      .integrity-circle.data-circle {
+        right: 35px;
+        background: rgb(47 162 188 / 7%);
+      }
+
+      .integrity-circle h3 {
+        margin-bottom: 10px;
+        font-size: 1.75rem;
+      }
+
+      .integrity-circle p {
+        margin: 0;
+        color: #c8dce6;
+        font-size: 0.92rem;
+      }
+
+      .brand-result {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+      }
+
+      .brand-result::before {
+        display: block;
+        width: 1px;
+        height: 42px;
+        margin: 0 auto 12px;
+        background: linear-gradient(
+          to bottom,
+          rgb(255 255 255 / 70%),
+          rgb(255 255 255 / 15%)
+        );
+        content: "";
+      }
+
+      .brand-result span {
+        display: block;
+        margin-bottom: 2px;
+        color: #9fc5d5;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .brand-result strong {
+        color: #fff;
+        font-family: Georgia, serif;
+        font-size: 1.8rem;
+      }
+
+      .integrity-principle {
+        display: grid;
+        align-items: center;
+        margin-top: 70px;
+        padding-top: 36px;
+        border-top: 1px solid rgb(255 255 255 / 18%);
+        grid-template-columns: 1fr auto 1fr auto 1fr;
+        gap: 28px;
+      }
+
+      .integrity-principle > div:not(.plus, .equals) {
+        min-width: 0;
+      }
+
+      .integrity-principle span {
+        display: block;
+        margin-bottom: 8px;
+        color: #9fc5d5;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .integrity-principle strong {
+        display: block;
+        color: #fff;
+        font-family: Georgia, serif;
+        font-size: 1.25rem;
+        line-height: 1.3;
+      }
+
+      .integrity-principle .plus,
+      .integrity-principle .equals {
+        color: #78b7cd;
+        font-family: Georgia, serif;
+        font-size: 2rem;
+      }
+
+      .integrity-principle .brand strong {
+        font-size: 1.55rem;
+      }
+
+      /* 03 Brand Integrity Index */
+
+      .index-section {
+        background: #fff;
+      }
+
+      .index-heading {
+        display: grid;
+        align-items: end;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        margin-bottom: 64px;
+      }
+
+      .index-heading .section-title {
+        margin-bottom: 0;
+      }
+
+      .index-intro {
+        max-width: 580px;
+        margin: 0;
+        color: #536a79;
+        font-size: 1.08rem;
+      }
+
+      .index-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .index-column {
+        padding: 42px;
+        border-radius: 12px;
+      }
+
+      .behavioral-index {
+        background: #edf7fb;
+      }
+
+      .data-index {
+        background: #f1f8f3;
+      }
+
+      .index-column-heading {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid rgb(11 49 80 / 12%);
+      }
+
+      .index-number {
+        color: var(--blue);
+        font-family: Georgia, serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
+      .index-type {
+        margin-bottom: 6px;
+        color: var(--blue);
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .index-column-heading h3 {
+        margin: 0;
+        font-size: 1.7rem;
+      }
+
+      .index-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .index-list li {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        gap: 12px;
+        padding: 25px 0;
+        border-bottom: 1px solid rgb(11 49 80 / 10%);
+      }
+
+      .item-number {
+        padding-top: 2px;
+        color: var(--blue);
+        font-family: Georgia, serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+
+      .index-list strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--navy);
+        font-family: Georgia, serif;
+        font-size: 1.2rem;
+      }
+
+      .index-list p {
+        margin: 0;
+        color: #526978;
+        font-size: 0.94rem;
+      }
+
+      .index-note {
+        margin: 28px 0 0;
+        color: #526978;
+        font-size: 0.9rem;
+        font-style: italic;
+      }
+
+      .technology-note {
+        margin-top: 30px;
+        padding: 24px;
+        background: rgb(255 255 255 / 65%);
+        border: 1px solid rgb(11 49 80 / 10%);
+        border-radius: 8px;
+      }
+
+      .technology-note span {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--blue);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+      }
+
+      .technology-note p {
+        margin: 0;
+        color: #526978;
+        font-size: 0.92rem;
+      }
+
+      .index-conclusion {
+        margin-top: 52px;
+        text-align: center;
+      }
+
+      .index-conclusion p {
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .index-conclusion strong {
+        color: var(--navy);
+        font-family: Georgia, serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+
+      /* 04 Advertising Model */
+
+      .advertising-model {
+        overflow: hidden;
+        background: linear-gradient(180deg, #fff 0%, #f7fbfc 100%);
+      }
+
+      .model-heading {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 28px;
+        margin-bottom: 64px;
+      }
+
+      .model-heading .section-title {
+        margin-bottom: 0;
+      }
+
+      .model-title {
+        display: flex;
+        align-items: baseline;
+        gap: 0.18em;
+        max-width: none;
+        white-space: nowrap;
+      }
+
+      .model-times {
+        color: var(--blue);
+        font-weight: 400;
+      }
+
+      .model-message {
+        max-width: 720px;
+        padding-left: 26px;
+        border-left: 1px solid #a9c6d3;
+      }
+
+      .model-message p:last-child {
+        margin: 0;
+        color: var(--navy);
+        font-family: Georgia, serif;
+        font-size: 1.45rem;
+        line-height: 1.4;
+      }
+
+      .model-kicker {
+        margin-bottom: 8px;
+        color: var(--blue);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .one-page-visual {
+        max-width: 940px;
+        margin: 0 auto 72px;
+      }
+
+      .page-frame {
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #b9ced8;
+        border-radius: 12px;
+        box-shadow: 0 24px 70px rgb(11 49 80 / 8%);
+      }
+
+      .page-browser {
+        display: flex;
+        align-items: center;
+        height: 38px;
+        padding: 0 15px;
+        gap: 6px;
+        background: #f2f6f8;
+        border-bottom: 1px solid #dce6ea;
+      }
+
+      .page-browser span {
+        width: 7px;
+        height: 7px;
+        background: #b7c9d1;
+        border-radius: 50%;
+      }
+
+      .page-content {
+        display: grid;
+        min-height: 350px;
+        grid-template-columns: 1.45fr 0.55fr;
+      }
+
+      .editorial-side,
+      .advertiser-side {
+        padding: 52px;
+      }
+
+      .editorial-side {
+        border-right: 1px solid #dce6ea;
+      }
+
+      .advertiser-side {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background: linear-gradient(145deg, #edf7fa, #f8fcfd);
+        text-align: center;
+      }
+
+      .visual-label {
+        display: block;
+        margin-bottom: 30px;
+        color: var(--blue);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+      }
+
+      .visual-title {
+        width: 82%;
+        height: 18px;
+        margin-bottom: 12px;
+        background: var(--navy);
+        border-radius: 2px;
+      }
+
+      .visual-title.short {
+        width: 55%;
+        margin-bottom: 38px;
+      }
+
+      .visual-copy {
+        width: 92%;
+        height: 7px;
+        margin-bottom: 10px;
+        background: #cad9df;
+        border-radius: 99px;
+      }
+
+      .visual-copy.medium {
+        width: 68%;
+      }
+
+      .brand-symbol {
+        position: relative;
+        display: grid;
+        width: 78px;
+        height: 78px;
+        margin-bottom: 22px;
+        place-items: center;
+        border: 1px solid #75aec1;
+        border-radius: 50%;
+      }
+
+      .brand-symbol::before,
+      .brand-symbol::after {
+        position: absolute;
+        background: #75aec1;
+        content: "";
+      }
+
+      .brand-symbol::before {
+        width: 1px;
+        height: 110px;
+      }
+
+      .brand-symbol::after {
+        width: 110px;
+        height: 1px;
+      }
+
+      .brand-symbol span {
+        position: relative;
+        z-index: 1;
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        border: 2px solid var(--blue);
+        border-radius: 50%;
+      }
+
+      .advertiser-side strong {
+        color: var(--navy);
+        font-family: Georgia, serif;
+        font-size: 1.25rem;
+        line-height: 1.25;
+      }
+
+      .visual-result {
+        display: grid;
+        align-items: center;
+        padding: 20px 26px;
+        color: #fff;
+        background: var(--navy);
+        grid-template-columns: 1fr auto 1fr;
+        gap: 28px;
+        text-align: center;
+      }
+
+      .visual-result span {
+        color: #9fc5d5;
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+      }
+
+      .visual-result strong {
+        font-family: Georgia, serif;
+        font-size: 1.25rem;
+      }
+
+      .model-benefits {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .model-benefits article {
+        padding: 34px 30px;
+        border-right: 1px solid var(--line);
+      }
+
+      .model-benefits article:first-child {
+        padding-left: 0;
+      }
+
+      .model-benefits article:last-child {
+        padding-right: 0;
+        border-right: 0;
+      }
+
+      .benefit-number {
+        display: block;
+        margin-bottom: 24px;
+        color: var(--blue);
+        font-family: Georgia, serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .model-benefits h3 {
+        margin-bottom: 12px;
+        font-size: 1.35rem;
+      }
+
+      .model-benefits p {
+        margin: 0;
+        color: #586e7c;
+        font-size: 0.92rem;
+      }
+
+      .model-statement {
+        margin-top: 68px;
+        text-align: center;
+      }
+
+      .model-statement span {
+        display: block;
+        margin-bottom: 12px;
+        color: var(--blue);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+      }
+
+      .model-statement p {
+        margin-bottom: 4px;
+        color: #617582;
+        font-size: 1rem;
+      }
+
+      .model-statement strong {
+        color: var(--navy);
+        font-family: Georgia, serif;
+        font-size: clamp(1.7rem, 3vw, 2.5rem);
+        line-height: 1.3;
+      }
+
+      /* 05 Proof of Concept */
+
+      .poc {
+        background:
+          linear-gradient(
+            180deg,
+            #f7fafb 0%,
+            #eef6f8 100%
+          );
+      }
+
+      .poc-heading {
+        display: grid;
+        align-items: end;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        margin-bottom: 58px;
+      }
+
+      .poc-heading .section-title {
+        margin-bottom: 0;
+      }
+
+      .poc-intro {
+        max-width: 560px;
+        margin: 0;
+        color: #536a79;
+        font-size: 1.08rem;
+      }
+
+      .poc-results {
+        display: grid;
+        margin-bottom: 64px;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid #c8dce5;
+        border-radius: 12px;
+        grid-template-columns: 0.7fr 0.7fr 1.6fr;
+      }
+
+      .poc-metric,
+      .poc-summary {
+        padding: 34px;
+      }
+
+      .poc-metric {
+        border-right: 1px solid #d8e4e9;
+        text-align: center;
+      }
+
+      .poc-metric span,
+      .poc-summary span {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--blue);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .poc-metric strong {
+        display: block;
+        color: var(--navy);
+        font-family: Georgia, serif;
+        font-size: clamp(3rem, 6vw, 5rem);
+        line-height: 1;
+      }
+
+      .poc-summary {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .poc-summary p {
+        margin: 0;
+        color: var(--navy);
+        font-family: Georgia, serif;
+        font-size: 1.35rem;
+        line-height: 1.4;
+      }
+
+      .poc-story {
+        display: grid;
+        align-items: stretch;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 28px;
+      }
+
+      .poc-before,
+      .poc-after {
+        padding: 38px;
+        background: rgb(255 255 255 / 72%);
+        border: 1px solid #d5e3e8;
+        border-radius: 10px;
+      }
+
+      .poc-after {
+        background: #fff;
+      }
+
+      .poc-label {
+        display: block;
+        margin-bottom: 12px;
+        color: var(--blue);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+      }
+
+      .poc-story h3 {
+        margin-bottom: 24px;
+        font-size: 1.55rem;
+      }
+
+      .poc-story ul {
+        margin: 0;
+        padding-left: 1.2rem;
+        color: #536a79;
+      }
+
+      .poc-story li {
+        margin-bottom: 9px;
+      }
+
+      .poc-arrow {
+        display: grid;
+        place-items: center;
+        color: var(--blue);
+        font-family: Georgia, serif;
+        font-size: 2.3rem;
+      }
+
+      .poc-conclusion {
+        margin-top: 60px;
+        text-align: center;
+      }
+
+      .poc-conclusion span {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--blue);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+      }
+
+      .poc-conclusion p {
+        margin-bottom: 4px;
+        color: #617582;
+      }
+
+      .poc-conclusion strong {
+        color: var(--navy);
+        font-family: Georgia, serif;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+      }
+
+      .hero-metrics-source {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        margin-top: 12px;
+        color: var(--blue);
+        font-size: 0.72rem;
+        font-weight: 700;
+        line-height: 1.4;
+        letter-spacing: 0.03em;
+        text-decoration: none;
+      }
+
+      .hero-metrics-source span {
+        transition: transform 0.2s ease;
+      }
+
+      .hero-metrics-source:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .hero-metrics-source:hover span {
+        transform: translateX(3px);
+      }
+
+      .hero-metrics-source:focus-visible {
+        outline: 2px solid var(--blue);
+        outline-offset: 4px;
+      }
+
+/* 06 Collaboration */
+
+.collaboration-section {
+  background: #fff;
+}
+
+.collaboration-heading {
+  display: grid;
+  align-items: end;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  margin-bottom: 64px;
+}
+
+.collaboration-heading .section-title {
+  margin-bottom: 0;
+}
+
+.collaboration-intro {
+  max-width: 560px;
+  margin: 0;
+  color: #536a79;
+  font-size: 1.08rem;
+}
+
+.aamp-relationship {
+  display: grid;
+  align-items: stretch;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 28px;
+}
+
+.aamp-side,
+.integrity-side {
+  padding: 42px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.aamp-side {
+  background: #f7fafb;
+}
+
+.integrity-side {
+  background: #edf7fb;
+}
+
+.relationship-label {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--blue);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.aamp-relationship h3 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.aamp-relationship p {
+  color: #536a79;
+}
+
+.relationship-question {
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid rgb(11 49 80 / 12%);
+}
+
+.relationship-question span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--blue);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.relationship-question strong {
+  color: var(--navy);
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.35;
+}
+
+.relationship-bridge {
+  display: grid;
+  place-items: center;
+  color: var(--blue);
+  font-family: Georgia, serif;
+  font-size: 2.4rem;
+}
+
+.collaboration-result {
+  margin-top: 64px;
+  padding: 48px;
+  color: #fff;
+  background:
+    radial-gradient(
+      circle at 75% 40%,
+      rgb(38 137 167 / 30%),
+      transparent 30%
+    ),
+    var(--navy);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.collaboration-result > span {
+  display: block;
+  margin-bottom: 18px;
+  color: #9fc5d5;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.collaboration-result h3 {
+  margin-bottom: 22px;
+  color: #fff;
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+}
+
+.collaboration-result h3 span {
+  padding-inline: 0.22em;
+  color: #78b7cd;
+  font-weight: 400;
+}
+
+.collaboration-result p {
+  max-width: 820px;
+  margin: 0 auto;
+  color: #d9eaf1;
+}
+
+.exploration-grid {
+  display: grid;
+  margin-top: 64px;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.exploration-grid article {
+  padding: 34px 28px;
+  border-right: 1px solid var(--line);
+}
+
+.exploration-grid article:first-child {
+  padding-left: 0;
+}
+
+.exploration-grid article:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.exploration-grid article > span {
+  display: block;
+  margin-bottom: 20px;
+  color: var(--blue);
+  font-family: Georgia, serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.exploration-grid h3 {
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+}
+
+.exploration-grid p {
+  margin: 0;
+  color: #586e7c;
+  font-size: 0.92rem;
+}
+
+.collaboration-note {
+  margin-top: 58px;
+  text-align: center;
+}
+
+.collaboration-note p {
+  margin-bottom: 5px;
+  color: #667985;
+}
+
+.collaboration-note strong {
+  color: var(--navy);
+  font-family: Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.35;
+}
+
+.research-question {
+  margin-top: 72px;
+  padding-top: 38px;
+  border-top: 1px solid var(--line);
+}
+
+.research-question > span {
+  display: block;
+  margin-bottom: 18px;
+  color: var(--blue);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.research-question p {
+  max-width: 820px;
+  margin: 0;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.12;
+}
+
+.research-question strong {
+  display: block;
+  max-width: 720px;
+  margin-top: 26px;
+  color: #536a79;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.collaboration-types {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 34px 0 36px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 18%);
+}
+
+.collaboration-types span {
+  display: flex;
+  align-items: center;
+  min-height: 58px;
+  padding: 14px 18px;
+  background: rgb(11 49 80 / 96%);
+  color: rgb(255 255 255 / 82%);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+}
+
+/* 07 Leadership */
+
+.leadership-section {
+  background: #f7fafb;
+}
+
+.leadership-heading {
+  display: grid;
+  align-items: end;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  margin-bottom: 64px;
+}
+
+.leadership-heading .section-title {
+  margin-bottom: 0;
+}
+
+.leadership-intro {
+  max-width: 520px;
+  margin: 0;
+  color: #536a79;
+  font-size: 1.08rem;
+}
+
+.leadership-profile {
+  display: grid;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  grid-template-columns: 0.75fr 1.25fr;
+}
+
+.profile-identity {
+  padding: 0;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      145deg,
+      #edf7fa 0%,
+      #f8fcfd 100%
+    );
+  border-right: 1px solid var(--line);
+}
+
+.profile-photo {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: #dce8ed;
+}
+
+.profile-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.profile-identity-content {
+  padding: 38px 46px 42px;
+}
+
+.profile-label,
+.profile-origin > span {
+  display: block;
+  color: var(--blue);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.profile-label {
+  margin-bottom: 18px;
+}
+
+.profile-identity h3 {
+  margin-bottom: 8px;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.profile-role {
+  margin-bottom: 32px;
+  color: #536a79;
+  font-weight: 700;
+}
+
+.profile-origin {
+  padding-top: 26px;
+  border-top: 1px solid rgb(11 49 80 / 12%);
+}
+
+.profile-origin > span {
+  margin-bottom: 7px;
+}
+
+.profile-origin > strong {
+  display: block;
+  color: var(--navy);
+  font-family: Georgia, serif;
+  font-size: 1.3rem;
+}
+
+.profile-story {
+  padding: 46px 52px;
+}
+
+.profile-story p {
+  color: #536a79;
+}
+
+.profile-story p:last-child {
+  margin-bottom: 0;
+}
+
+.profile-story .profile-lead {
+  color: var(--navy);
+  font-family: Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.45;
+}
+
+.profile-story strong {
+  color: var(--navy);
+}
+
+.profile-link {
+  position: relative;
+  display: block;
+  margin-top: 22px;
+  padding-top: 20px;
+  padding-right: 28px;
+  border-top: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+}
+
+.profile-link > span:first-child {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--blue);
+  font-size: 0.62rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+}
+
+.profile-link strong {
+  display: block;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.profile-link-arrow {
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  color: var(--blue);
+  font-size: 0.9rem;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.profile-link:hover strong {
+  color: var(--blue);
+}
+
+.profile-link:hover .profile-link-arrow {
+  transform: translate(2px, -2px);
+}
+
+.profile-link:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 5px;
+}
+
+.leadership-path {
+  display: grid;
+  align-items: start;
+  margin-top: 64px;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  gap: 22px;
+}
+
+.leadership-path > div:not(.path-arrow) {
+  min-width: 0;
+}
+
+.leadership-path span {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--blue);
+  font-family: Georgia, serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.leadership-path strong {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--navy);
+  font-family: Georgia, serif;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.leadership-path p {
+  margin: 0;
+  color: #667985;
+  font-size: 0.88rem;
+}
+
+.path-arrow {
+  padding-top: 36px;
+  color: #8bb7c7;
+  font-family: Georgia, serif;
+  font-size: 1.6rem;
+}
+
+.leadership-statement {
+  margin-top: 70px;
+  text-align: center;
+}
+
+.leadership-statement span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--blue);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.leadership-statement p {
+  margin-bottom: 4px;
+  color: #667985;
+}
+
+.leadership-statement strong {
+  color: var(--navy);
+  font-family: Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.3;
+}
+
+/* 08 Contact & Collaboration */
+
+.contact-section {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(
+      circle at 78% 45%,
+      rgb(40 142 171 / 28%),
+      transparent 30%
+    ),
+    var(--navy);
+  border-bottom: 0;
+}
+
+.contact-section::before {
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  width: 360px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(159 197 213 / 45%),
+    transparent
+  );
+  content: "";
+}
+
+.contact-section::after {
+  position: absolute;
+  top: calc(50% - 180px);
+  right: calc(8% + 180px);
+  width: 1px;
+  height: 360px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgb(159 197 213 / 45%),
+    transparent
+  );
+  content: "";
+}
+
+.contact-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-section h2 {
+  color: #fff;
+}
+
+.contact-layout {
+  display: grid;
+  align-items: start;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 90px;
+}
+
+.contact-main .section-title {
+  max-width: 760px;
+  margin-bottom: 30px;
+}
+
+.contact-lead {
+  max-width: 700px;
+  margin: 0;
+  color: #d9eaf1;
+  font-size: 1.1rem;
+}
+
+.contact-invitation {
+  padding: 38px 0 0 36px;
+  border-left: 1px solid rgb(255 255 255 / 22%);
+}
+
+.contact-label {
+  display: block;
+  margin-bottom: 18px;
+  color: #9fc5d5;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.contact-invitation p {
+  color: #d9eaf1;
+}
+
+.contact-invitation strong {
+  color: #fff;
+}
+
+.contact-cta {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 34px;
+  padding: 18px 22px;
+  color: var(--navy);
+  background: #fff;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.contact-cta span:last-child {
+  font-family: Georgia, serif;
+  font-size: 1.3rem;
+}
+
+.contact-cta:hover {
+  color: #fff;
+  background: transparent;
+}
+
+.contact-principle {
+  margin-top: 82px;
+  padding-top: 34px;
+  border-top: 1px solid rgb(255 255 255 / 18%);
+}
+
+.contact-principle > span {
+  display: block;
+  margin-bottom: 18px;
+  color: #9fc5d5;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.contact-equation {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.contact-equation strong {
+  color: #fff;
+  font-family: Georgia, serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+}
+
+.contact-equation span {
+  color: #78b7cd;
+  font-family: Georgia, serif;
+  font-size: 1.7rem;
+}
+
+.contact-cta-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.github-icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+}
+
+      /* Footer */
+
+      footer {
+        padding: 34px 0;
+        font-size: 0.85rem;
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+      }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1000px) {
+  .belief-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .belief-intro {
+    max-width: 680px;
+  }
+
+  .integrity-diagram {
+    width: min(100%, 620px);
+    margin-inline: auto;
+  }
+}
+
+      /* Responsive */
+
+      @media (max-width: 800px) {
+        .container {
+          width: min(100% - 32px, 1180px);
+        }
+
+        nav a:not(.contact-button) {
+          display: none;
+        }
+
+        .section {
+          padding: 72px 0;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .hero-inner {
+          padding: 90px 0 72px;
+        }
+
+        .integrity-mark {
+          top: 28%;
+          left: 82%;
+          width: 230px;
+          height: 230px;
+          opacity: 0.2;
+        }
+
+        .metrics {
+          display: grid;
+          width: 100%;
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .metric {
+          min-width: auto;
+        }
+
+        .metric:nth-child(2) {
+          border-right: 0;
+        }
+
+        .problem-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .belief-layout {
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+
+        .integrity-diagram {
+          width: 100%;
+          height: 310px;
+        }
+
+        .integrity-circle {
+          top: 0;
+          width: 210px;
+          height: 210px;
+        }
+
+        .integrity-circle.behavioral {
+          left: calc(50% - 190px);
+        }
+
+        .integrity-circle.data-circle {
+          right: calc(50% - 190px);
+        }
+
+        .integrity-circle h3 {
+          font-size: 1.25rem;
+        }
+
+        .integrity-circle p {
+          max-width: 120px;
+          font-size: 0.78rem;
+        }
+
+        .brand-result::before {
+          height: 28px;
+        }
+
+        .brand-result strong {
+          font-size: 1.55rem;
+        }
+
+        .integrity-principle {
+          grid-template-columns: 1fr;
+          gap: 18px;
+          margin-top: 48px;
+        }
+
+        .integrity-principle .plus,
+        .integrity-principle .equals {
+          font-size: 1.3rem;
+        }
+
+        .index-heading {
+          grid-template-columns: 1fr;
+          gap: 22px;
+          margin-bottom: 42px;
+        }
+
+        .index-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .index-column {
+          padding: 28px 22px;
+        }
+
+        .index-column-heading {
+          gap: 12px;
+        }
+
+        .index-column-heading h3 {
+          font-size: 1.45rem;
+        }
+
+        .index-list li {
+          grid-template-columns: 32px 1fr;
+        }
+
+        .index-conclusion {
+          margin-top: 40px;
+        }
+
+        .model-heading {
+          gap: 26px;
+          margin-bottom: 46px;
+        }
+
+        .model-title {
+          display: grid;
+          justify-items: start;
+          gap: 0;
+          white-space: normal;
+        }
+
+        .model-title .model-times {
+          line-height: 0.9;
+        }
+
+        .model-message {
+          padding-left: 18px;
+        }
+
+        .model-message p:last-child {
+          font-size: 1.25rem;
+        }
+
+        .one-page-visual {
+          margin-bottom: 52px;
+        }
+
+        .page-content {
+          grid-template-columns: 1fr;
+        }
+
+        .editorial-side,
+        .advertiser-side {
+          padding: 34px 28px;
+        }
+
+        .editorial-side {
+          min-height: 270px;
+          border-right: 0;
+          border-bottom: 1px solid #dce6ea;
+        }
+
+        .advertiser-side {
+          min-height: 260px;
+        }
+
+        .visual-result {
+          grid-template-columns: 1fr;
+          gap: 5px;
+          padding: 20px;
+        }
+
+        .model-benefits {
+          grid-template-columns: 1fr;
+        }
+
+        .model-benefits article,
+        .model-benefits article:first-child,
+        .model-benefits article:last-child {
+          padding: 28px 0;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .model-benefits article:last-child {
+          border-bottom: 0;
+        }
+
+        .benefit-number {
+          margin-bottom: 12px;
+        }
+
+        .model-statement {
+          margin-top: 48px;
+        }
+
+        .poc-heading {
+          grid-template-columns: 1fr;
+          gap: 22px;
+          margin-bottom: 42px;
+        }
+
+        .poc-results {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .poc-summary {
+          grid-column: 1 / -1;
+          border-top: 1px solid #d8e4e9;
+        }
+
+        .poc-metric:nth-child(2) {
+          border-right: 0;
+        }
+
+        .poc-story {
+          grid-template-columns: 1fr;
+        }
+
+        .poc-arrow {
+          transform: rotate(90deg);
+        }
+
+        .poc-before,
+        .poc-after {
+          padding: 28px 24px;
+        }
+
+      .collaboration-heading {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        margin-bottom: 42px;
+      }
+
+      .aamp-relationship {
+        grid-template-columns: 1fr;
+      }
+
+      .relationship-bridge {
+        transform: rotate(90deg);
+      }
+
+      .aamp-side,
+      .integrity-side {
+        padding: 30px 24px;
+      }
+
+      .collaboration-result {
+        margin-top: 46px;
+        padding: 36px 24px;
+      }
+
+      .collaboration-result h3 span {
+        display: block;
+        padding: 5px 0;
+      }
+
+      .exploration-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .exploration-grid article,
+      .exploration-grid article:first-child,
+      .exploration-grid article:last-child {
+        padding: 28px 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .exploration-grid article:last-child {
+        border-bottom: 0;
+      }
+
+.leadership-heading {
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin-bottom: 42px;
+}
+
+.leadership-profile {
+  grid-template-columns: 1fr;
+}
+
+.profile-identity {
+  border-right: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.profile-photo {
+  aspect-ratio: 4 / 3;
+}
+
+.profile-identity-content {
+  padding: 32px 26px;
+}
+
+.profile-story {
+  padding: 32px 26px;
+}
+
+.leadership-path {
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 48px;
+}
+
+.path-arrow {
+  padding: 0;
+  transform: rotate(90deg);
+  text-align: center;
+}
+
+.leadership-statement {
+  margin-top: 52px;
+}
+
+.contact-layout {
+  grid-template-columns: 1fr;
+  gap: 46px;
+}
+
+.contact-invitation {
+  padding: 30px 0 0;
+  border-top: 1px solid rgb(255 255 255 / 22%);
+  border-left: 0;
+}
+
+.contact-principle {
+  margin-top: 58px;
+}
+
+.contact-equation {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+}
+
+.contact-section::before {
+  right: -80px;
+  width: 260px;
+  opacity: 0.45;
+}
+
+.contact-section::after {
+  top: 80px;
+  right: 50px;
+  height: 260px;
+  opacity: 0.45;
+}
+
+.collaboration-types {
+  grid-template-columns: 1fr;
+  margin: 28px 0 32px;
+}
+
+.collaboration-types span {
+  min-height: 52px;
+  padding: 13px 16px;
+}
+
+.research-question {
+  margin-top: 52px;
+  padding-top: 30px;
+}
+
+.research-question p {
+  font-size: clamp(1.8rem, 9vw, 2.6rem);
+}
+
+.research-question strong {
+  margin-top: 20px;
+}
+
+        .footer-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
   </head>
+
   <body>
-    <p><a href="/en/">Continue to Y&H Inc.</a></p>
+    <header>
+      <div class="container header-inner">
+        <a class="logo" href="/">Y&H</a>
+
+        <nav aria-label="Primary navigation">
+          <a href="#vision">Our Vision</a>
+          <a href="#approach">Approach</a>
+          <a href="#case-study">Case Study</a>
+          <a href="#agentic">Agentic Advertising</a>
+          <a href="#about">About</a>
+          <a class="contact-button" href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="integrity-mark" aria-hidden="true">
+          <span class="integrity-axis integrity-axis-v"></span>
+          <span class="integrity-axis integrity-axis-h"></span>
+          <span class="integrity-core"></span>
+        </div>
+
+        <div class="container hero-inner">
+          <p class="eyebrow">Brand Integrity by Design</p>
+
+          <h1>
+            Restoring Integrity
+            <br />
+            and Beauty to the Open Web.
+          </h1>
+
+          <p class="hero-subtitle">
+            Behavioral Integrity. Data Integrity. Better Advertising.
+          </p>
+
+          <p class="hero-copy">
+            The future of advertising should not depend on more tracking,
+            more intermediaries, or more impressions. It should depend on
+            verifiable participants, verifiable information, and advertising
+            experiences people actually value.
+          </p>
+
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric-label">Average CTR</div>
+              <div class="metric-value">15%</div>
+            </div>
+
+            <div class="metric">
+              <div class="metric-label">Peak CTR</div>
+              <div class="metric-value">70%+</div>
+            </div>
+          </div>
+          <a
+            class="hero-metrics-source"
+            href="#case-study"
+          >
+            JiJi Style proof of concept <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <p class="eyebrow">01 — The Problem</p>
+
+          <h2 class="section-title">
+            The Open Web Has an Integrity Problem
+          </h2>
+
+          <p class="lead">
+            Programmatic advertising has created enormous efficiency,
+            but today's advertising ecosystem often rewards scale and volume
+            more than user experience, content quality, and long-term brand value.
+          </p>
+
+          <div class="problem-grid">
+            <article class="card">
+              <h3>Excessive Advertising Infrastructure</h3>
+              <p>
+                Modern webpages can carry extensive advertising auctions,
+                measurement systems, trackers, and third-party scripts in
+                addition to the content users actually requested.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3>User Migration to Ad Blocking</h3>
+              <p>
+                Users increasingly protect themselves through browser-level
+                privacy tools and ad blocking, weakening the economic
+                relationship between quality publishers and their audiences.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3>Fraud and Unverifiable Participants</h3>
+              <p>
+                Bots, crawlers, intermediaries, and automated systems operate
+                at enormous scale while their identities and intentions are
+                often difficult to verify.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="vision" class="section belief">
+        <div class="container">
+          <p class="eyebrow">02 — Our Belief</p>
+
+          <div class="belief-layout">
+            <div class="belief-intro">
+              <h2 class="section-title">
+                Brand Integrity
+                <br />
+                by Design
+              </h2>
+
+              <p class="lead">
+                A healthy digital ecosystem requires integrity in both
+                how organizations behave and how digital information is
+                created, published, and maintained.
+              </p>
+            </div>
+
+            <div class="integrity-diagram">
+              <div class="integrity-circle behavioral">
+                <div>
+                  <h3>Behavioral<br />Integrity</h3>
+                  <p>Integrity of the actor</p>
+                </div>
+              </div>
+
+              <div class="integrity-circle data-circle">
+                <div>
+                  <h3>Data<br />Integrity</h3>
+                  <p>Integrity of the information</p>
+                </div>
+              </div>
+
+              <div class="brand-result">
+                <span>Behavior + Data</span>
+                <strong>Brand Integrity</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="integrity-principle">
+            <div>
+              <span>Behavioral Integrity</span>
+              <strong>How do you act?</strong>
+            </div>
+
+            <div class="plus">+</div>
+
+            <div>
+              <span>Data Integrity</span>
+              <strong>Can your information be verified?</strong>
+            </div>
+
+            <div class="equals">=</div>
+
+            <div class="brand">
+              <span>The Result</span>
+              <strong>Brand Integrity</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="approach" class="section index-section">
+        <div class="container">
+          <div class="index-heading">
+            <div>
+              <p class="eyebrow">03 — Solution</p>
+
+              <h2 class="section-title">
+                Brand Integrity Index
+              </h2>
+            </div>
+
+            <p class="index-intro">
+              Brand Integrity should not be an abstract promise.
+              We propose a measurable framework for evaluating integrity
+              from two complementary dimensions:
+              <strong>behavior and data.</strong>
+            </p>
+          </div>
+
+          <div class="index-grid">
+            <article class="index-column behavioral-index">
+              <div class="index-column-heading">
+                <span class="index-number">01</span>
+
+                <div>
+                  <p class="index-type">Behavioral Integrity</p>
+                  <h3>Does the originator act with integrity?</h3>
+                </div>
+              </div>
+
+              <ol class="index-list">
+                <li>
+                  <span class="item-number">01</span>
+                  <div>
+                    <strong>Clear Originator Identity</strong>
+                    <p>
+                      The organization clearly identifies who is responsible
+                      for the content and digital property.
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <span class="item-number">02</span>
+                  <div>
+                    <strong>Transparent Policies</strong>
+                    <p>
+                      Editorial standards, privacy policies, and other relevant
+                      policies are publicly available.
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <span class="item-number">03</span>
+                  <div>
+                    <strong>Transparent Corrections &amp; Deletions</strong>
+                    <p>
+                      Meaningful corrections, updates, and deletions are
+                      publicly disclosed.
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <span class="item-number">04</span>
+                  <div>
+                    <strong>Responsible Advertising &amp; Data Practices</strong>
+                    <p>
+                      Advertising and data practices respect users and the
+                      wider digital environment.
+                    </p>
+                  </div>
+                </li>
+              </ol>
+
+              <p class="index-note">
+                These observable signals can increasingly be evaluated by AI,
+                creating the potential to assess Behavioral Integrity at scale.
+              </p>
+            </article>
+
+            <article class="index-column data-index">
+              <div class="index-column-heading">
+                <span class="index-number">02</span>
+
+                <div>
+                  <p class="index-type">Data Integrity</p>
+                  <h3>Can the published information be verified?</h3>
+                </div>
+              </div>
+
+              <ol class="index-list">
+                <li>
+                  <span class="item-number">01</span>
+                  <div>
+                    <strong>Authenticity of the Originator</strong>
+                    <p>
+                      The identity behind digital information can be
+                      technically verified.
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <span class="item-number">02</span>
+                  <div>
+                    <strong>Integrity of Articles &amp; Text</strong>
+                    <p>
+                      Unauthorized modification of published text can be
+                      detected.
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <span class="item-number">03</span>
+                  <div>
+                    <strong>Provenance of Images &amp; Video</strong>
+                    <p>
+                      The origin and history of visual media can be
+                      technically evaluated.
+                    </p>
+                  </div>
+                </li>
+              </ol>
+
+              <div class="technology-note">
+                <span>IMPLEMENTATION EXAMPLES</span>
+
+                <p>
+                  Open technologies and standards such as <strong>Originator Profile (OP)</strong> and
+                  <strong>C2PA</strong> provide examples of technical
+                  approaches that can support these forms of Data Integrity.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="index-conclusion">
+            <p>Two dimensions. One measurable objective.</p>
+            <strong>Brand Integrity</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section advertising-model">
+        <div class="container">
+          <div class="model-heading">
+            <div>
+              <p class="eyebrow">04 — The Advertising Model</p>
+
+              <h2 class="section-title model-title">
+                <span>One Page</span>
+                <span class="model-times">×</span>
+                <span>One Advertiser</span>
+              </h2>
+            </div>
+
+            <div class="model-message">
+              <p class="model-kicker">Brand Integrity in Practice</p>
+
+              <p>
+                What if a webpage stopped competing for attention
+                and started protecting it?
+              </p>
+            </div>
+          </div>
+
+          <div class="one-page-visual">
+            <div class="page-frame">
+              <div class="page-browser">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <div class="page-content">
+                <div class="editorial-side">
+                  <span class="visual-label">QUALITY CONTENT</span>
+
+                  <div class="visual-title"></div>
+                  <div class="visual-title short"></div>
+
+                  <div class="visual-copy"></div>
+                  <div class="visual-copy"></div>
+                  <div class="visual-copy medium"></div>
+                </div>
+
+                <div class="advertiser-side">
+                  <span class="visual-label">ONE ADVERTISER</span>
+
+                  <div class="brand-symbol">
+                    <span></span>
+                  </div>
+
+                  <strong>
+                    Contextually
+                    <br />
+                    Aligned Brand
+                  </strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="visual-result">
+              <span>ONE PAGE</span>
+              <strong>One clear relationship.</strong>
+              <span>ONE ADVERTISER</span>
+            </div>
+          </div>
+
+          <div class="model-benefits">
+            <article>
+              <span class="benefit-number">01</span>
+              <h3>Contextually Matched</h3>
+              <p>
+                A relevant advertiser is aligned with the subject and
+                context of the editorial content.
+              </p>
+            </article>
+
+            <article>
+              <span class="benefit-number">02</span>
+              <h3>Clean by Design</h3>
+              <p>
+                No competing ad units. No battle for visual attention.
+                Content remains the primary experience.
+              </p>
+            </article>
+
+            <article>
+              <span class="benefit-number">03</span>
+              <h3>Less Complexity</h3>
+              <p>
+                Reducing advertising components creates the potential
+                for a simpler, lighter page architecture.
+              </p>
+            </article>
+
+            <article>
+              <span class="benefit-number">04</span>
+              <h3>Respect for Attention</h3>
+              <p>
+                Advertising becomes a relevant brand experience rather
+                than an interruption users need to fight.
+              </p>
+            </article>
+          </div>
+
+          <div class="model-statement">
+            <span>THE PRINCIPLE</span>
+
+            <p>
+              Fewer ads do not necessarily mean less value.
+            </p>
+
+            <strong>
+              Better alignment can create more value from one advertiser.
+            </strong>
+          </div>
+        </div>
+      </section>
+
+      <section id="case-study" class="section poc">
+        <div class="container">
+          <div class="poc-heading">
+            <div>
+              <p class="eyebrow">05 — Proof of Concept</p>
+
+              <h2 class="section-title">
+                Real-World Evidence<br />
+                from <a href="https://style.yh-inc.jp" target="_blank" rel="noopener noreferrer"> JiJi Style
+                </a>
+              </h2>
+            </div>
+
+            <p class="poc-intro">
+              Y&H tested the One Page × One Advertiser approach on <strong>
+              <a
+                href="https://style.yh-inc.jp"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                JiJi Style
+              </a>
+              </strong>, an independent classic menswear
+              and lifestyle publication.
+            </p>
+          </div>
+
+          <div class="poc-results">
+            <div class="poc-metric">
+              <span>Average CTR</span>
+              <strong>15%</strong>
+            </div>
+
+            <div class="poc-metric">
+              <span>Peak CTR</span>
+              <strong>70%+</strong>
+            </div>
+
+            <div class="poc-summary">
+              <span>THE RESULT</span>
+                <p>
+                  Contextually aligned brand experiences generated
+                  strong voluntary user engagement in this experiment.
+                </p>
+            </div>
+          </div>
+
+          <div class="poc-story">
+            <div class="poc-before">
+              <span class="poc-label">BEFORE</span>
+              <h3>Advertising Competes for Attention</h3>
+
+              <ul>
+                <li>Multiple ad units</li>
+                <li>Competing brand messages</li>
+                <li>More advertising infrastructure</li>
+                <li>Fragmented user attention</li>
+              </ul>
+            </div>
+
+            <div class="poc-arrow" aria-hidden="true">→</div>
+
+            <div class="poc-after">
+              <span class="poc-label">AFTER</span>
+              <h3>One Clear Brand Relationship</h3>
+
+              <ul>
+                <li>One advertiser per page</li>
+                <li>Contextual alignment with content</li>
+                <li>Cleaner page architecture</li>
+                <li>Voluntary user engagement</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="poc-conclusion">
+            <span>WHAT WE LEARNED</span>
+
+            <p>
+              Brand Integrity is not only a governance principle.
+            </p>
+
+            <strong>
+              It can also create economic value.
+            </strong>
+          </div>
+        </div>
+      </section>
+
+      <section id="agentic" class="section collaboration-section">
+        <div class="container">
+          <div class="collaboration-heading">
+            <div>
+              <p class="eyebrow">06 — Agentic Advertising</p>
+
+              <h2 class="section-title">
+                Bringing Brand Integrity
+                <br />
+                to the Agentic Advertising Ecosystem
+              </h2>
+            </div>
+
+            <p class="collaboration-intro">
+              Agentic advertising will require more than interoperability.
+              It will require mechanisms for evaluating <strong>who is acting, how they behave, and whether the data
+              they rely on can be verified.</strong>
+            </p>
+          </div>
+
+          <div class="aamp-relationship">
+            <div class="aamp-side">
+              <span class="relationship-label">AAMP</span>
+
+              <h3>
+                Agentic Advertising
+                <br />
+                Management Protocols
+              </h3>
+
+              <p>
+                AAMP is establishing an interoperable foundation for
+                advertising agents to discover, communicate, negotiate,
+                transact, and exchange signals across the advertising ecosystem.
+              </p>
+
+              <div class="relationship-question">
+                <span>THE QUESTION</span>
+                <strong>
+                  How do advertising agents interact?
+                </strong>
+              </div>
+            </div>
+
+            <div class="relationship-bridge" aria-hidden="true">
+              <span>+</span>
+            </div>
+
+            <div class="integrity-side">
+              <span class="relationship-label">BRAND INTEGRITY INDEX</span>
+
+              <h3>
+                Integrity for Actors
+                <br />
+                and Information
+              </h3>
+
+              <p>
+                Brand Integrity provides a complementary framework
+                for evaluating the behavior of digital participants
+                and the integrity of the information they exchange.
+              </p>
+
+              <div class="relationship-question">
+                <span>THE QUESTION</span>
+                <strong>
+                  Can the participants and their information be evaluated?
+                </strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="collaboration-result">
+            <span>THE OPPORTUNITY</span>
+
+            <h3>
+              Protocol Interoperability
+              <span>+</span>
+              Behavioral Integrity
+              <span>+</span>
+              Data Integrity
+            </h3>
+
+            <p>
+              Together, these layers could support an agentic advertising
+              ecosystem in which automated systems can evaluate not only
+              what information is exchanged, but also who stands behind it,
+              what policies govern their behavior, and whether the information
+              itself maintains its integrity.
+            </p>
+          </div>
+
+          <div class="exploration-grid">
+            <article>
+              <span>01</span>
+              <h3>Participant Identity</h3>
+              <p>
+                Explore how agents, publishers, advertisers, and other
+                market participants can be associated with verifiable
+                organizational identities.
+              </p>
+            </article>
+
+            <article>
+              <span>02</span>
+              <h3>Behavioral Policies</h3>
+              <p>
+                Explore machine-readable declarations of authorization,
+                operational policies, and expected behavior.
+              </p>
+            </article>
+
+            <article>
+              <span>03</span>
+              <h3>Data Integrity</h3>
+              <p>
+                Explore how provenance and integrity signals can help agents
+                evaluate content, contextual data, and other digital information.
+              </p>
+            </article>
+
+            <article>
+              <span>04</span>
+              <h3>Brand Suitability</h3>
+              <p>
+                Explore how verified behavioral and data signals could support
+                more transparent, policy-driven brand decisions.
+              </p>
+            </article>
+          </div>
+
+          <div class="collaboration-note">
+            <p>
+              Y&H does not propose replacing existing AAMP protocols.
+            </p>
+
+            <strong>
+              We propose exploring how Brand Integrity can become
+              a complementary layer by design.
+            </strong>
+          </div>
+
+          <div class="research-question">
+            <span>THE RESEARCH QUESTION</span>
+
+            <p>
+              Can Brand Integrity become a measurable signal
+              for agentic advertising?
+            </p>
+
+            <strong>
+              We have a hypothesis, a framework, and early evidence.
+              The next step is to test it.
+            </strong>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section leadership-section">
+        <div class="container">
+          <div class="leadership-heading">
+            <div>
+              <p class="eyebrow">07 — Leadership</p>
+
+              <h2 class="section-title">
+                From the Attention Economy
+                <br />
+                to Brand Integrity
+              </h2>
+            </div>
+
+            <p class="leadership-intro">
+              Brand Integrity is rooted in decades of experience
+              across advertising, media, and the evolution of the Open Web.
+            </p>
+          </div>
+
+          <div class="leadership-profile">
+            <div class="profile-identity">
+              <div class="profile-photo">
+                <img
+                  src="/images/yoshifumi-takeuchi.jpg"
+                  alt="Yoshifumi Takeuchi"
+                />
+              </div>
+
+              <div class="profile-identity-content">
+                <span class="profile-label">FOUNDER &amp; CEO</span>
+
+                <h3>Yoshifumi Takeuchi</h3>
+
+                <p class="profile-role">
+                  CEO, Y&amp;H Inc.
+                </p>
+
+                <div class="profile-origin">
+                  <span>ORIGINATOR OF THE CONCEPT</span>
+                  <strong>Originator Profile</strong>
+
+                  <a
+                    class="profile-link"
+                    href="https://www.j-platpat.inpit.go.jp/c1801/PU/JP-2025-182694/11/en"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>INVENTOR</span>
+                    <strong>JP 2025-182694</strong>
+                    <span class="profile-link-arrow" aria-hidden="true">↗</span>
+                  </a>
+
+                  <a
+                    class="profile-link"
+                    href="https://dentsu-ho.com/en/articles/4987"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>RECOGNITION</span>
+                    <strong>JAAA Essay Gold Prize, 2017</strong>
+                    <span class="profile-link-arrow" aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-story">
+              <p class="profile-lead">
+                Yoshifumi Takeuchi has spent decades working in advertising
+                and digital media, including a long career at Dentsu.<br />
+                In 2017, his proposal for a healthier advertising ecosystem received the Gold Prize in the JAAA Essay Contest.
+              </p>
+
+              <p>
+                His experience with digital advertising led to a fundamental
+                question: as the Internet becomes increasingly automated,
+                how can people and machines determine who stands behind
+                digital information and whether its integrity can be verified?
+              </p>
+
+              <p>
+                This thinking led to the concept of <strong>Originator Profile</strong> and continues today through
+                Y&amp;H's exploration of <strong>Brand Integrity</strong> —
+                connecting responsible behavior, verifiable information,
+                and better advertising experiences.
+              </p>
+            </div>
+          </div>
+
+          <div class="leadership-path">
+            <div>
+              <span>01</span>
+              <strong>Advertising</strong>
+              <p>Understanding brands, media, and the economics of attention.</p>
+            </div>
+
+            <div class="path-arrow" aria-hidden="true">→</div>
+
+            <div>
+              <span>02</span>
+              <strong>Open Web</strong>
+              <p>Exploring the structural challenges created by digital advertising.</p>
+            </div>
+
+            <div class="path-arrow" aria-hidden="true">→</div>
+
+            <div>
+              <span>03</span>
+              <strong>Originator Profile</strong>
+              <p>Exploring how the originator behind digital information can be identified.</p>
+            </div>
+
+            <div class="path-arrow" aria-hidden="true">→</div>
+
+            <div>
+              <span>04</span>
+              <strong>Brand Integrity</strong>
+              <p>Connecting behavior, data integrity, and sustainable advertising.</p>
+            </div>
+          </div>
+
+          <div class="leadership-statement">
+            <span>THE CONTINUING QUESTION</span>
+
+            <p>
+              How can technology make the Internet
+            </p>
+
+            <strong>
+              more accountable, more sustainable, and more human?
+            </strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="contact">
+        <div class="container">
+          <div class="contact-layout">
+            <div class="contact-main">
+              <p class="eyebrow">08 — Contact &amp; Collaboration</p>
+
+              <h2 class="section-title">
+                Let's Build the Integrity Layer
+                <br />
+                of the Agentic Web.
+              </h2>
+
+              <p class="contact-lead">
+                The next generation of digital advertising will be shaped
+                not only by what agents can do, but by how confidently
+                people and machines can evaluate the participants,
+                behavior, and information behind them.
+              </p>
+            </div>
+
+            <div class="contact-invitation">
+              <span class="contact-label">AN OPEN INVITATION</span>
+
+              <p>
+                Y&amp;H welcomes dialogue and collaboration with
+                publishers, advertisers, ad-tech companies,
+                AI platform developers, researchers, and the wider
+                agentic advertising community.
+              </p>
+
+              <div class="collaboration-types">
+                <span>Industry Collaboration</span>
+                <span>Research Partnership</span>
+                <span>Proof of Concept</span>
+                <span>Research Sponsorship</span>
+              </div>
+
+              <p>
+                We are particularly interested in exploring how <strong>Brand Integrity</strong> can complement emerging
+                agentic advertising protocols and help support a healthier,
+                more sustainable Open Web.
+              </p>
+
+              <a
+                class="contact-cta"
+                href="https://github.com/yoshid8s/brand-integrity/discussions/1"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="contact-cta-label">
+                  <svg
+                    class="github-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.57-.29-5.27-1.28-5.27-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.47.11-3.05 0 0 .97-.31 3.16 1.18A10.9 10.9 0 0 1 12 6.11c.98 0 1.95.13 2.87.39 2.2-1.49 3.16-1.18 3.16-1.18.63 1.58.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.71 5.38-5.29 5.67.42.36.79 1.07.79 2.16v3.25c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"
+                    />
+                  </svg>
+
+                  <span>Explore a Collaboration</span>
+                </span>
+
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="contact-principle">
+            <span>BRAND INTEGRITY BY DESIGN</span>
+
+            <div class="contact-equation">
+              <strong>Behavioral Integrity</strong>
+              <span>+</span>
+              <strong>Data Integrity</strong>
+              <span>=</span>
+              <strong>Brand Integrity</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <strong class="logo">Y&H</strong>
+
+        <div>
+          © {year} Y&H Inc. All rights reserved.
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
-EOF
