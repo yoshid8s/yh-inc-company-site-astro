@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_レイヤー_2" data-name="レイヤー 2" xmlns="http://www.w3.org/2000/svg" width="19.3mm" height="19.3mm" viewBox="0 0 54.7 54.7">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #7f8080;
+        stroke-miterlimit: 10;
+        stroke-width: 7px;
+      }
+
+      .cls-2 {
+        fill: #231815;
+      }
+
+      .cls-3 {
+        fill: #7f8080;
+      }
+    </style>
+  </defs>
+  <g id="MasterLayer_1" data-name="MasterLayer 1">
+    <path class="cls-3" d="M21.02,25.45h13.01v-11.8h4.55v30.16h-4.55v-14.08h-13.01v14.08h-4.55V13.66h4.55v11.8Z"/>
+    <circle class="cls-1" cx="27.35" cy="27.35" r="23.85"/>
+    <path class="cls-2" d="M25.05,30.79L15.21,13.66h5.23l6.89,12.05,6.91-12.05h5.23l-9.88,17.13v13.03h-4.55v-13.03Z"/>
+  </g>
+</svg>
