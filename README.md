@@ -1,46 +1,99 @@
-# Astro Starter Kit: Basics
+# Y&H Inc. Company Site
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Official company website for Y&H Inc.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Production site: https://yh-inc.jp/en/
 
-## 🚀 Project Structure
+## Brand Integrity by Design
 
-Inside of your Astro project, you'll see the following folders and files:
+Y&H explores Brand Integrity through two complementary dimensions:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+- Behavioral Integrity
+- Data Integrity
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+The site presents Y&H's research and practical exploration of:
 
-## 🧞 Commands
+- Brand Integrity Index
+- One Page × One Advertiser
+- Agentic Advertising
+- Originator Profile and C2PA as examples of technologies supporting Data Integrity
 
-All commands are run from the root of the project, from a terminal:
+## Tech Stack
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+- Astro
+- TypeScript
+- pnpm
+- Static HTML/CSS
+- Sakura Internet
 
-## 👀 Want to learn more?
+## Development
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Install dependencies:
+
+    pnpm install
+
+Start the local development server:
+
+    pnpm dev
+
+Local development URL:
+
+    http://localhost:4321/
+
+## Build
+
+Create a production build:
+
+    pnpm build
+
+Production files are generated in:
+
+    dist/
+
+The production site consists primarily of:
+
+    dist/
+    ├── _astro/
+    ├── en/
+    │   └── index.html
+    ├── images/
+    ├── index.html
+    └── yh-logo.svg
+
+The root page redirects to:
+
+    /en/
+
+## Production
+
+Production URL:
+
+    https://yh-inc.jp/en/
+
+Hosting:
+
+    Sakura Internet
+
+The Astro site is deployed to:
+
+    /home/yh-inc/www/
+
+Existing subdirectories used by other websites and services must not be deleted or overwritten during deployment.
+
+## GitHub Actions
+
+Pushes and pull requests to `main` run a production build automatically.
+
+The workflow verifies:
+
+1. Repository checkout
+2. pnpm setup
+3. Node.js setup
+4. Dependency installation
+5. Astro production build
+
+## Collaboration
+
+Brand Integrity research and discussion:
+
+https://github.com/yoshid8s/brand-integrity
