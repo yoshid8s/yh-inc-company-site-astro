@@ -2263,6 +2263,88 @@ const year = new Date().getFullYear();
           flex-direction: column;
         }
       }
+
+      /* Mobile navigation */
+      .menu-toggle {
+        display: none;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+      }
+
+      .menu-toggle span {
+        display: block;
+        width: 24px;
+        height: 1.5px;
+        background: currentColor;
+        transition:
+          transform 0.25s ease,
+          opacity 0.25s ease;
+      }
+
+      @media (max-width: 800px) {
+        .header-inner {
+          position: relative;
+        }
+
+        .menu-toggle {
+          display: flex;
+          margin-left: auto;
+          position: relative;
+          z-index: 1002;
+        }
+
+        .header-inner > nav {
+          display: none;
+          position: absolute;
+          top: calc(100% + 1px);
+          left: 0;
+          right: 0;
+          z-index: 1001;
+          padding: 20px 24px 28px;
+          background: #fff;
+          border-top: 1px solid rgba(15, 23, 42, 0.08);
+          box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+        }
+
+        .header-inner > nav.is-open {
+          display: flex;
+        }
+
+        .header-inner > nav a {
+          display: block;
+          padding: 14px 0;
+          border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        .header-inner > nav .contact-button {
+          margin-top: 14px;
+          text-align: center;
+          border-bottom: 0;
+        }
+
+        .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+          transform: translateY(6.5px) rotate(45deg);
+        }
+
+        .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+          transform: translateY(-6.5px) rotate(-45deg);
+        }
+      }
+
     </style>
   </head>
 
@@ -2271,7 +2353,19 @@ const year = new Date().getFullYear();
       <div class="container header-inner">
         <a class="logo" href="/">Y&H</a>
 
-        <nav aria-label="Primary navigation">
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="primary-navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav id="primary-navigation" aria-label="Primary navigation">
           <a href="#vision">Our Vision</a>
           <a href="#approach">Approach</a>
           <a href="#case-study">Case Study</a>
@@ -3178,5 +3272,40 @@ const year = new Date().getFullYear();
         </div>
       </div>
     </footer>
+
+    <script is:inline>
+      const menuToggle = document.querySelector('.menu-toggle');
+      const primaryNavigation = document.querySelector('#primary-navigation');
+
+      if (menuToggle && primaryNavigation) {
+        const closeMenu = () => {
+          primaryNavigation.classList.remove('is-open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.setAttribute('aria-label', 'Open navigation');
+        };
+
+        menuToggle.addEventListener('click', () => {
+          const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+
+          primaryNavigation.classList.toggle('is-open', !isOpen);
+          menuToggle.setAttribute('aria-expanded', String(!isOpen));
+          menuToggle.setAttribute(
+            'aria-label',
+            isOpen ? 'Open navigation' : 'Close navigation'
+          );
+        });
+
+        primaryNavigation.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', closeMenu);
+        });
+
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 800) {
+            closeMenu();
+          }
+        });
+      }
+    </script>
+
   </body>
 </html>
