@@ -1,4 +1,4 @@
-name: Build
+name: Build and Deploy
 
 on:
   push:
@@ -32,3 +32,45 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Setup SSH
+        if: github.event_name == 'push'
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.SAKURA_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p "${{ secrets.SAKURA_PORT }}" "${{ secrets.SAKURA_HOST }}" >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Deploy to Sakura
+        if: github.event_name == 'push'
+        run: |
+          ssh -p "${{ secrets.SAKURA_PORT }}" \
+            "${{ secrets.SAKURA_USER }}@${{ secrets.SAKURA_HOST }}" \
+            'mkdir -p /home/yh-inc/www/en /home/yh-inc/www/_astro /home/yh-inc/www/images'
+
+          rsync -av \
+            -e "ssh -p ${{ secrets.SAKURA_PORT }}" \
+            dist/index.html \
+            "${{ secrets.SAKURA_USER }}@${{ secrets.SAKURA_HOST }}:/home/yh-inc/www/index.html"
+
+          rsync -av \
+            -e "ssh -p ${{ secrets.SAKURA_PORT }}" \
+            dist/yh-logo.svg \
+            "${{ secrets.SAKURA_USER }}@${{ secrets.SAKURA_HOST }}:/home/yh-inc/www/yh-logo.svg"
+
+          rsync -av \
+            -e "ssh -p ${{ secrets.SAKURA_PORT }}" \
+            dist/en/ \
+            "${{ secrets.SAKURA_USER }}@${{ secrets.SAKURA_HOST }}:/home/yh-inc/www/en/"
+
+          rsync -av \
+            -e "ssh -p ${{ secrets.SAKURA_PORT }}" \
+            dist/_astro/ \
+            "${{ secrets.SAKURA_USER }}@${{ secrets.SAKURA_HOST }}:/home/yh-inc/www/_astro/"
+
+          rsync -av \
+            -e "ssh -p ${{ secrets.SAKURA_PORT }}" \
+            dist/images/ \
+            "${{ secrets.SAKURA_USER }}@${{ secrets.SAKURA_HOST }}:/home/yh-inc/www/images/"
