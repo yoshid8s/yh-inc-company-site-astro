@@ -38,7 +38,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf '%s\n' "${{ secrets.SAKURA_SSH_KEY }}" > ~/.ssh/id_ed25519
+          printf '%s' "${{ secrets.SAKURA_SSH_KEY_B64 }}" | base64 -d > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -p "${{ secrets.SAKURA_PORT }}" "${{ secrets.SAKURA_HOST }}" >> ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
